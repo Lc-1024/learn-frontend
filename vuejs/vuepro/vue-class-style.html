@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue class & style</title>
+    <!-- 引入 vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+      .active {
+        color: pink;
+        font-size: 18px;
+      }
+      .red-bg {
+        background: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Vue class & style</h1>
+    <p>vue.js中，class和style还可以通过其他方式来赋属性值。特别地，vue.js还不需要程序员给不同浏览器加前缀，vue.js会自动为他们加上前缀</p>
+    <div id="app1">
+      <h2>class绑定</h2>
+      <!-- 数组语法绑定 class   当isActive为true时，active就成成span标签的class -->
+      <p class="static" :class="{'active':isActive,'red-bg':isRed}">可以用v-bind:class="{'active':isActive,'red-bg':isRed}"来确定class值包含与否。</p>
+      <p :class="[activeClass,bgColorClass]">也可以用v-bind:class="[activeClass,bgColorClass]"这样一个数组将'active' 'red-bg'传给class。</p>
+      <!-- isActive 为true 渲染后 <span class="static active red-bg">syl</span> -->
+    </div>
+    <script>
+      var app1 = new Vue({
+        el: '#app1',
+        data: {
+          isActive: true,
+          isRed: true,
+          activeClass: 'active',
+          bgColorClass: 'red-bg',
+        },
+      });
+    </script>
+    <div id="app2">
+      <h2>style绑定</h2>
+      <p v-bind:style="{fontSize:size,backgroundColor:bgColor}">style同样可以通过v-bind:style="{fontSize:size,backgroundColor:bgColor}"来将size和bgColor赋给style。</p>
+      <p v-bind:style="styleObject">或者直接v-bind:style="styleObject"绑定一个字典styleObject:{fontSize:'26px',backgroundColor:'pink',}，会更加清晰。</p>
+      <p v-bind:style="[styleObject1,styleObject2]">相应地，甚至可以通过v-bind:style="[styleObject1,styleObject2]"绑定一堆style的字典。</p>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app2',
+        data: {
+          size: '26px',
+          bgColor: 'pink',
+          styleObject: {
+            fontSize: '26px',
+            backgroundColor: 'pink',
+          },
+          //样式一
+          styleObject1: {
+            fontSize: '26px',
+            backgroundColor: 'pink',
+          },
+          //样式二
+          styleObject2: {
+            marginTop: '40px',
+            textAlign: 'center',
+          },
+        },
+      });
+    </script>
+
+    <div id="app3">
+      <p>还可以组合着使用</p>
+      <button @click="handleClick">变色变大</button>
+      <p
+        v-bind:style="{fontSize:fontSize+'px'}"
+        v-bind:class="{active:isActive}"
+      >
+        hello
+      </p>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app3',
+        data: {
+          fontSize: 20,
+          isActive: true,
+        },
+        methods: {
+          handleClick: function () {
+            this.fontSize += 2;
+            this.isActive = !this.isActive; //取反
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

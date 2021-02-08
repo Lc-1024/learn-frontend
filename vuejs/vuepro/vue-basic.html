@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue basic</title>
+    <!-- 通过cdn方式引入 vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  </head>
+  <body>
+    <!-- 数据双向绑定 -->
+    <div id="app">
+      <h1>Vue.js使用了基于的模板语法</h1>
+      <h2>v-model</h2>
+      <p>v-model不但可以将data代入属性值，还可以将属性值value赋给data的变量</p>
+      <span>v-model=</span>
+      <input type="text" v-model="msg" />
+      <p>msg:{{msg}}</p>
+      <p v-once>v-once:{{msg}}</p>
+      <p v-html="msg"></p>
+
+      <h2>v-bind</h2>
+      <p>v-bind:将属性值与data绑定</p>
+      <span>v-bind:checked="ok" and v-model="ok": </span>
+      <input type="checkbox" v-model="ok" v-bind:checked="ok" />
+      <!-- 三元表达式 -->
+      <p>Are you ok? {{ok ? 'I am ok !':'no'}}</p>
+      <p>也可以简写成：:checked="ok" v-model="ok"</p>
+      <input type="checkbox" v-model="ok" :checked="ok" />
+      <p>注意：此时如果换成:value则只是将data代入属性值，不能将属性值赋给data中的变量</p>
+      <input type="checkbox" :value="ok" :checked="ok" />
+
+      <h2>v-on</h2>
+      <p>v-on:将属性值与method绑定</p>
+      <p>[event]:用data中的值替换event作为属性名</p>
+      <button v-on:[event]="handleClick">v-on:[event]="handleClick"</button>
+      <!-- 对象方法直接调用 -->
+      <p>名字倒过来写：{{name.split('').reverse().join('')}}</p>
+      <span>也可以简写成：</span>
+      <button @[event]="handleClick">@[event]="handleClick"</button>
+
+      <h2>other</h2>
+      <!-- 运算符 -->
+      <p>双大括号+运算符计算：num + 24 = {{num + 24}}</p>
+      <!-- 属性值运算操作 -->
+      <p :style="'font-size: '+size">属性值中'font-size: '+size改变字体大小</p>
+      <a :href="url">bind当然也可以用于url作为属性值</a>
+      <h2>修饰符</h2>
+      <p>事件修饰符.prevent阻止事件默认行为，如提交事件产生的跳转：</p>
+      <form action="/" v-on:submit.prevent="submit">
+        <button type="submit">阻止跳转</button>
+      </form>
+      <form action="/" v-on:submit="submit">
+        <button type="submit">不阻止跳转</button>
+      </form>
+    </div>
+    <script>
+      var app = new Vue({
+        el: '#app', //el: 挂载点
+
+        data: {
+          //data:数据选项
+          msg: '<h1>hello</h1>',
+          num: 20,
+          ok: true,
+          event: 'click',
+          name: 'lc',
+          size: '20px',
+          url: 'https://www.baidu.com',
+        },
+        methods: {
+            handleClick: function() {
+                this.name = this.name.split('').reverse().join('');
+            },
+            submit: function() {
+                alert('成功提交！');
+            }
+        }
+      });
+    </script>
+  </body>
+</html>
