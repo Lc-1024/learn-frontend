@@ -1,0 +1,40 @@
+ul, li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+
+/*顶部导航开始*/
+.header {
+  height: 26px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #d8d8d8;
+}
+.header-con {
+  width: 970px;
+  margin: 0 auto;
+  height: 26px; 
+}
+.header-r ul li {
+  float: left;
+  height: 26px;
+  line-height: 26px;
+}
+.header-l {
+  height: 26px;
+  line-height: 26px;
+}
+ 
+.header-r ul li a {
+  display: inline-block;
+  height: 26px;
+  padding: 0 10px;
+}

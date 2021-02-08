@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas</title>
+  </head>
+
+  <body>
+    <!--添加canvas元素，设置画布的大小-->
+    <canvas id="mycanvas" width="520px" height="1314px">
+      对不起，你的浏览器不支持canvas
+    </canvas>
+
+    <script type="text/javascript">
+      //获取canvas元素
+      var myCanvas = document.getElementById('mycanvas');
+      //获取Context上下文
+      var ctx = myCanvas.getContext('2d');
+      //设置渐变色
+      var gradient = ctx.createLinearGradient(0, 0, 170, 0);
+      gradient.addColorStop(0, 'red');
+      gradient.addColorStop('0.2', 'orange');
+      gradient.addColorStop('0.5', 'yellow');
+      gradient.addColorStop('0.7', 'green');
+      gradient.addColorStop(1, 'blue');
+      //填充色为渐变色
+      ctx.fillStyle = gradient;
+      //绘制矩形
+      ctx.fillRect(10, 10, 100, 200);
+      ctx.clearRect(20, 20, 50, 50);
+      // 绘制圆
+      // x, y, r, (start)sAngle/rad, (end)eAngel/rad, counterclockwise(false==顺时针)
+      ctx.fillStyle = "#ff0000";
+      ctx.arc(20, 20, 10, 0, 2 * Math.PI, false);
+      ctx.stroke();
+      // 1/4 圆
+      ctx.fillStyle = "#00ff00";
+      ctx.beginPath();
+      ctx.arc(100, 75, 50, 0, 0.5 * Math.PI);
+      ctx.moveTo(100, 125);
+      ctx.lineTo(100, 75);
+      ctx.lineTo(150, 75);
+      ctx.stroke();
+      // 文本
+      // text, x, y, maxWidth
+      ctx.fillText('hello', 10, 50);
+      ctx.font = '50px Georgia';
+      ctx.strokeText('你好', 30, 50);
+      //画一条线便于展示
+      ctx.strokeStyle = 'blue';
+      ctx.moveTo(200, 20);
+      ctx.lineTo(200, 180);
+      ctx.stroke();
+      //设置字体样式
+      ctx.font = '20px Georgia';
+      //值为start的情况
+      ctx.textAlign = 'start';
+      ctx.strokeText('Hello Syl!', 200, 20);
+      //值为center的情况
+      ctx.textAlign = 'center';
+      ctx.strokeText('Hello Syl!', 200, 60);
+      //值为end的情况
+      ctx.textAlign = 'end';
+      ctx.strokeText('Hello Syl!', 200, 100);
+      //值为left的情况
+      ctx.textAlign = 'left';
+      ctx.strokeText('Hello Syl!', 200, 140);
+      //值为right的情况
+      ctx.textAlign = 'right';
+      ctx.strokeText('Hello Syl!', 200, 180);
+      //画一条线便于展示
+      ctx.strokeStyle = 'blue';
+      ctx.moveTo(20, 100);
+      ctx.lineTo(1314, 100);
+      ctx.stroke();
+      //设置字体样式
+      ctx.font = '30px Georgia';
+      //值为alphabetic的情况
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText('Hello Syl!', 20, 100);
+      //值为top的情况
+      ctx.textBaseline = 'top';
+      ctx.fillText('Hello Syl!', 220, 100);
+      //值为hanging的情况
+      ctx.textBaseline = 'hanging';
+      ctx.fillText('Hello Syl!', 420, 100);
+      //值为middle的情况
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Hello Syl!', 620, 100);
+      //值为ideographic的情况
+      ctx.textBaseline = 'ideographic';
+      ctx.fillText('Hello Syl!', 820, 100);
+      //值为bottom的情况
+      ctx.textBaseline = 'bottom';
+      ctx.fillText('Hello Syl!', 1020, 100);
+    </script>
+  </body>
+</html>

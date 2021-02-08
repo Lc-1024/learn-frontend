@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title></title>
+    <meta charset="utf-8" />
+
+  </head>
+    <style>
+    @font-face {
+        font-family: 'Bitstream Vera Serif Bold';
+        src: url('http://developer.mozilla.org/@api/deki/files/2934/=VeraSeBd.ttf');
+      }
+
+      body {
+        font-family: 'Bitstream Vera Serif Bold', serif;
+      }
+  p {
+    font-family: 'yahei';
+    font-size: 14px;
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline overline line-through;
+    text-indent: 2em;
+    line-height: 30px;
+    letter-spacing: 1em;
+  }
+  #p2 {
+      color: pink;
+      text-align: center;
+      outline: red dotted thick;
+  }
+  p {
+        width: 500px;
+        height: 2.5em;
+        padding: 1em 1em 1em 1em;
+        border: 1px solid black;
+      }
+  .one {
+        overflow: auto;
+      }
+
+      .two {
+        overflow: hidden;
+      }
+
+      .three {
+        overflow: visible;
+      }
+</style>
+  <body>
+    <p>asdasd</p>
+    <p id='p2'>asdasd</p>
+    <p class="one">
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+    </p>
+
+    <p class="two">
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+    </p>
+
+    <p class="three">
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+      我爱学习，学习使我快乐！我爱学习，学习使我快乐！
+    </p>
+    <style>
+      ul {
+        list-style-type: circle;
+        list-style-position: inside;
+        background-color: red;
+      }
+
+      ol {
+        list-style-type: lower-alpha;
+      }
+
+      li {
+        background-color: gold;
+      }
+    </style>
+    <ul>
+      <li>111</li>
+      <li>222</li>
+      <li>333</li>
+    </ul>
+
+    <ol>
+      <li>555</li>
+      <li>666</li>
+      <li>777</li>
+    </ol>
+    <style>
+    a:hover {
+        color: red;
+        text-decoration: none;
+        /*鼠标经过，字体颜色变成红色，并且去掉下划线*/
+    }
+    </style>
+    <body>
+    <a href=#>实验楼</a>
+    </body>
+    <style type="text/css">
+      #box1 {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        padding: 20px 10px 10px 50px;
+        border-style: solid;
+        border-width: 15px 5px;
+        border-color: blue;
+      }
+      #box2 {
+        width: 200px;
+        height: 200px;
+        background-color: blue;
+        border: 2px solid red;
+      }
+    </style>
+    <div id="box1"></div>
+    <div id="box2"></div>
+    <style type="text/css">
+      table,
+      td {
+        border: 1px solid blue;
+      }
+
+      td {
+        background-color: red;
+        color: yellow;
+        text-align: left;
+        vertical-align: bottom;
+        padding: 30px;
+      }
+
+      table {
+        width: 200px;
+        height: 100px;
+        border-collapse: collapse;
+      }
+
+      caption {
+        caption-side: bottom;
+      }
+    </style>
+    <table>
+      <caption>
+        我是标题
+      </caption>
+      <tr>
+        <td>one</td>
+        <td>two</td>
+      </tr>
+      <tr>
+        <td>three</td>
+        <td>four</td>
+      </tr>
+    </table>
+    <style>
+      .shadow {
+        box-shadow:1px 1px 1px yellow, 2px 2px 1px yellow, 3px 3px 1px blue, 4px 4px
+    1px blue, 5px 5px 1px black, inset 6px 6px 1px black;
+        width: 200px;
+        height: 200px;
+        background-color: blue;
+        border-radius: 50%;
+      }
+      .box {
+        width: 200px;
+        height: 100px;
+        color: red;
+        background-color: red;
+        text-align: center;
+        line-height: 100px;
+        margin: 100px auto;
+        text-shadow: 2px 2px 5px black;
+        border-radius: 20px;
+        border: 1px solid crimson;
+        box-shadow: 2px 2px 5px black, inset 2px 2px 5px black;
+      }
+    </style>
+    <div class="shadow">
+      实验楼
+    </div>
+    <div class="box">
+      我爱学习，身体棒棒！
+    </div>
+  </body>
+</html>

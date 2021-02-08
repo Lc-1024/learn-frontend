@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn" class="notranslate">
+<head>
+    <title>form</title>
+</head>
+
+<body>
+    <h1> Usage of Form </h1>
+    <p>全文参考W3school的<a href="https://www.w3school.com.cn/html/html_forms.asp" target="_blank">HTML</a>，以及相关文章。</p>
+    
+    <div id="inputtext">
+    <h2> 文本输入 </h2>
+    <h3><b>&lt;input type="text"&gt;</b> 定义用于文本输入的单行输入字段</h3>
+    <p>name属性定义名称，value定义初始输入。</p>
+    
+    <form>
+        First name:<br>
+        <input type="text" name="firstname" value="Li">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Chao">
+    </form>
+    </div>
+
+    <div id="inputradio">
+    <h2> 单选按钮输入 </h2>
+    <h3><b>&lt;input type="radio"&gt;</b> 定义单选按钮。<br></h3>
+    <p>name标签定义选项名称，value定义每个选项的值，可以加入checked作为初始选项（多个checked以后者为初始）。</p>
+    
+    <form>
+        <input type="radio" name="sex" value="male" checked> Male 
+        <br>
+        <input type="radio" name="sex" value="female"> Female 
+    </form>
+    </div>
+
+    <div id="inputsubmit">
+    <h2> 提交按钮 </h2>
+    <p>
+        <b>&lt;input type="submit"&gt;</b> 定义提交表单的按钮。<br>
+        value定义按钮文字。<br>
+        下面为省略action属性的提交：
+    </p>
+    <form>
+        First name:<br>
+        <input type="text" name="firstname" value="Li">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Chao">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+
+    <div id="inputother">
+    <p>其他的input输入类型见<a href="input-type.html" target="_blank">input type</a>。</p>
+    </div>
+
+    <div id="inputname">
+    <h2> Input name </h2>
+    <p>
+        如果要正确地提交，每个input输入都需要设置一个name属性。<br>
+        本例只会提交lastname输入（firstname未定义name属性）。
+    </p>
+    <form>
+        First name:<br>
+        <input type="text" value="Li">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Chao">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+
+    <div id="inputattr">
+    <p>input其他属性见<a href="input-attr.html" target="_blank">input attribute</a>。</p>
+    </div>
+
+    <div id="formaction">
+    <h2> Form action </h2>
+    <p>
+        action属性定义在提交表单时执行的动作。<br>
+        提交表单通常使用提交按钮，即type="submit"。<br>
+        如果省略action属性，则action会被设置为当前页面，
+        可以指定某个服务器脚本来处理被提交表单。<br>
+        例如，如果省略action属性，则网页链接后会有xxxxname=xxxxname；<br>
+        如果action="action_page.php"则会寻找该文件并试图提交到文件中。
+        <br><br>
+        表单处理程序在表单form的action属性中指定：<br>
+        <b>&lt;form action="action_page.php"&gt;</b> 。
+    </p>
+    <form action="action_page.php">
+        First name:<br>
+        <input type="text" name="firstname" value="Li">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Chao">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+
+    <div id="formmethod">
+    <h2> Form method </h2>
+    <p>
+        method属性规定提交表单时所用的HTTP方法（GET 或 POST）。<br>
+        <pre>
+        &lt;form action="action_page.php" method="GET"&gt;<br>
+        &lt;form action="action_page.php" method="POST"&gt;
+        </pre>
+        默认使用GET。<br>
+        如果提交是被动的（比如搜索引擎查询），并且没有敏感信息，可以使用GET。<br>
+        使用GET时，表单数据在页面地址栏中是可见的：<br>
+        <pre>action_page.php?firstname=Li&lastname=Chao</pre>
+        GET最适合少量数据的提交，并且浏览器会设定容量限制。<br>
+        <br>
+        如果表单正在更新数据，或者包含敏感信息（例如密码），应该使用POST。<br>
+        POST更具有安全性，应为在页面地址栏中提交的数据是不可见的。<br>
+        下例为method="POST"的提交：
+    </p>
+    <form method="POST">
+        First name:<br>
+        <input type="text" name="firstname" value="Li">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Chao">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    <p>
+        使用POST并提交之后，刷新页面会提示重新提交表单。
+    </p>
+    </div>
+
+    <div id="formtarget">
+    <h2> Form target </h2>
+    <p>
+        form 可以设置target属性，默认值为_self，会在当前页面提交。<br>
+        如果设置target="_blank"会在新的标签页打开。<br>
+        下例为<b>&lt;form target="_blank"&gt;</b>：
+    </p>
+    <form target="_blank">
+        First name:<br>
+        <input type="text" name="firstname" value="Li">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Chao">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+
+    <div id="formattr">
+    <h2> Form 其他属性 </h2>
+    <p>
+        HTML &lt;form&gt; 元素所有可能的属性如下：
+        <pre>
+    &lt;form action="action_page.php" method="GET" target="_blank" accept-charset="UTF-8"
+    ectype="application/x-www-form-urlencoded" autocomplete="off" novalidate&gt;
+    ...
+    form elements
+    ...
+    &lt;/form&gt; 
+        </pre> 
+        其中下面是 &lt;form&gt; 属性的列表：
+    </p>
+    <table>
+        <tbody>
+        <tr>
+        <th>属性</th>
+        <th>描述</th>
+        </tr>
+        
+        <tr>
+        <td>accept-charset</td>
+        <td>规定在被提交表单中使用的字符集（默认：页面字符集）。</td>
+        </tr>
+        
+        <tr>
+        <td>action</td>
+        <td>规定向何处提交表单的地址（URL）（提交页面）。</td>
+        </tr>
+        
+        <tr>
+        <td>autocomplete</td>
+        <td>规定浏览器应该自动完成表单（默认：开启）。</td>
+        </tr>
+        
+        <tr>
+        <td>enctype</td>
+        <td>规定被提交数据的编码，即字符、空格等等如何转换编码（默认：url-encoded）。</td>
+        </tr>
+        
+        <tr>
+        <td>method</td>
+        <td>规定在提交表单时所用的 HTTP 方法（默认：GET）。</td>
+        </tr>
+        
+        <tr>
+        <td>name</td>
+        <td>规定识别表单的名称（对于 DOM 使用：document.forms.name）。</td>
+        </tr>
+        
+        <tr>
+        <td>novalidate</td>
+        <td>规定浏览器不验证表单。</td>
+        </tr>
+        
+        <tr>
+        <td>target</td>
+        <td>规定 action 属性中地址的目标（默认：_self）。</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div id="fieldset">
+    <h2> 用 &lt;fieldset&gt; 组合表单数据 </h2>
+    <p>
+        fieldset 元素可将表单内的相关元素分组。<br>
+        &lt;fieldset&gt; 标签将表单内容的一部分打包，生成一组相关表单的字段。<br>
+        当一组表单元素放到 &lt;fieldset&gt; 标签内时，浏览器会以特殊方式来显示它们，它们可能有特殊的边界、3D 效果，或者甚至可创建一个子表单来处理这些元素。<br>
+        &lt;fieldset&gt; 标签没有必需的或唯一的属性。
+    </p>
+    <form>
+        <fieldset>
+        First name:<br>
+        <input type="text" name="firstname" value="Li">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Chao">
+        <br>
+        <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+    <p>
+        &lt;legend&gt; 元素为 &lt;fieldset&gt; 元素定义标题。
+    </p>
+    <form>
+        <fieldset>
+        <legend>Personal information:</legend>
+        First name:<br>
+        <input type="text" name="firstname" value="Li">
+        <br>
+        Last name:<br>
+        <input type="text" name="lastname" value="Chao">
+        <br>
+        <input type="submit" value="Submit">
+        </fieldset>
+    </form> 
+    </div>
+    
+    <p>以下form中特殊元素参考W3school的<a href="https://www.w3school.com.cn/html/html_form_elements.asp" target="_blank">HTML-Element</a>文章。</p>
+    
+    <div id="select">
+    <h2>&lt;select&gt; 元素（下拉列表）</h2>
+    <p>
+        &lt;select&gt; 元素定义：
+        <pre>
+    &lt;select name="cars"&gt;
+        &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+        &lt;option value="saab"&gt;Saab&lt;/option&gt;
+        &lt;option value="fiat"&gt;Fiat&lt;/option&gt;
+        &lt;option value="audi"&gt;Audi&lt;/option&gt;
+    &lt;/select&gt;
+        </pre>
+        &lt;option&gt; 元素定义待选择的选项。<br>
+        列表通常会把首个选项显示为被选选项。<br>
+        能够通过添加 selected 属性来定义预定义选项。<br>
+        <pre>    &lt;option value="fiat" selected&gt;Fiat&lt;/option&gt;</pre>
+    </p>
+    <form>
+        <select name="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+    </form>
+    </div>
+
+    <div id="textarea">
+    <h2>&lt;textarea&gt; 元素</h2>
+    <p>&lt;textarea&gt; 元素定义多行输入字段（文本域）：<br>
+    <pre>
+    &lt;textarea name="message" rows="10" cols="30"&gt;
+    The cat was playing in the garden.
+    &lt;/textarea&gt;
+    </pre>
+    以上 HTML 代码在浏览器中显示为：</p>
+    <form>
+    <textarea name="message" rows="5" cols="40">
+    The cat was playing in the garden.
+    </textarea>
+    </form>
+    </div>
+    
+    <div id="button">
+    <h2>&lt;button&gt; 元素</h2>
+    <p>&lt;button&gt; 元素定义可点击的按钮：</p>
+    <pre>   &lt;button type="button" onclick="alert('Hello World!')"&gt;Click Me!&lt;/button&gt;</pre>
+    <p>以上 HTML 代码在浏览器中显示为：</p>
+    <form>
+    <button type="button" onclick="alert('Hello World!')">Click Me!</button>
+    </form>
+    </div>
+    
+    <div id="html5">
+    <h2>HTML5 表单元素</h2>
+    <p>HTML5 增加了如下表单元素：</p>
+    <ul>
+    <li>&lt;datalist&gt;</li>
+    <li>&lt;keygen&gt;</li>
+    <li>&lt;output&gt;</li>
+    </ul>
+    <p>注释：默认地，浏览器不会显示未知元素。新元素不会破坏您的页面。</p>
+    </div>
+    
+    <div id="datalist">
+    <h2>&lt;datalist&gt; 元素</h2>
+    <p>&lt;datalist&gt; 元素为 &lt;input&gt; 元素规定预定义选项列表。</p>
+    <p>用户会在他们输入数据时看到预定义选项的下拉列表。</p>
+    <p>&lt;input&gt; 元素的 list 属性必须引用 &lt;datalist&gt; 元素的id属性。</p>
+    <p>通过 &lt;datalist&gt; 设置预定义值的 &lt;input&gt; 元素：</p>
+    <pre>
+    &lt;form action="action_page.php"&gt;
+    &lt;input list="browsers"&gt;
+    &lt;datalist id="browsers"&gt;
+        &lt;option value="Internet Explorer"&gt;
+        &lt;option value="Firefox"&gt;
+        &lt;option value="Chrome"&gt;
+        &lt;option value="Opera"&gt;
+        &lt;option value="Safari"&gt;
+    &lt;/datalist&gt; 
+    &lt;/form&gt;
+    </pre>
+    <form>
+        <input list="browsers">
+        <datalist id="browsers">
+           <option value="Internet Explorer">
+           <option value="Firefox">
+           <option value="Chrome">
+           <option value="Opera">
+           <option value="Safari">
+        </datalist> 
+    </form>
+    </div>
+    
+
+</body>
+</html>

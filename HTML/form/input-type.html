@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn" class="notranslate">
+<head>
+    <title>input type</title>
+</head>
+
+<body>
+    <div id="inputother">
+        <h1> Input输入类型 </h1>
+        <p>input的输入类型参考W3school的<a href="https://www.w3school.com.cn/html/html_form_input_types.asp" target="_blank">Input-Type</a>。</p>
+        <p>text, radio, submit类型见<a href="form.html" target="_blank">form</a>，下面介绍type为其他类型会产生的不同输入类型。</p>
+        
+        <h2>&lt;input type="password"&gt;定义密码字段：</h2>
+        <form>
+            User name: <input type="text" name="username"><br>
+            Password:  <input type="password" name="psw">
+        </form>
+        
+        <h2>&lt;input type="checkbox"&gt;定义复选框。</h2>
+        <p>复选框允许用户在有限数量的选项中选择零个或多个选项。</p>
+        <form>
+            <input type="checkbox" name="vehicle" value="Bike"> I have a bike <br>
+            <input type="checkbox" name="vehicle" value="Car"> I have a car 
+        </form>
+        
+        <h2>&lt;input type="button"&gt;定义按钮。</h2>
+        <p>作用类似于&lt;button&gt;。</p>
+        <form>
+            <input type="button" onclick="alert('This is a button.')" value="Click Me!">
+        </form>
+    
+        <h2>其他还有HTML5增加的多个新的输入类型。</h2>
+        <p>注释：老式web浏览器不支持的输入类型，会被视为输入类型text。</p>
+        
+        <h2>&lt;input type="number"&gt;用于应该包含数字值的输入字段。</h2>
+        <p>还可以对数字进行限制，如max, min, maxlength, disabled, pattern等。</p>
+        <p>移动端可以直接唤出数字键盘。</p>
+        <form>
+            Quantity (between 1 and 5):
+            <input type="number" name="quantity" min="1" max="5">
+        </form>
+        
+        <h2>&lt;input type="date"&gt;用于应该包含日期的输入字段。</h2>
+        <p>同样可以对日期进行限制，如min, max。</p>
+        <p>根据浏览器支持，日期选择器会出现在输入字段中。</p>
+        <form>
+            Birthday:
+            <input type="date" name="birthday" value="2000-11-15" min="1900-01-01" max="2022-12-31">
+        </form>
+    
+        <h2>&lt;input type="month"&gt;允许用户选择月份和年份。</h2>
+        <p>同样可以对月份进行限制，如min, max。</p>
+        <p>根据浏览器支持，日期选择器会出现在输入字段中。</p>
+        <form>
+            Birthday (month):
+            <input type="month" name="birthdaymonth" value="2000-11" min="1900-01" max="2022-12">
+        </form>
+        
+        <h2>&lt;input type="week"&gt;允许用户选择周和年。</h2>
+        <p>根据浏览器支持，日期选择器会出现在输入字段中。</p>
+        <form>
+            Select a week:
+            <input type="week" name="week">
+        </form>
+    
+        <h2>&lt;input type="time"&gt;允许用户选择时间（无时区）。</h2>
+        <p>根据浏览器支持，时间选择器会出现在输入字段中。</p>
+        <form>
+            Select a time:
+            <input type="time" name="time">
+        </form>
+    
+        <h2>&lt;input type="datetime"&gt;允许用户选择日期和时间（有时区）。</h2>
+        <p>根据浏览器支持，时间选择器会出现在输入字段中。</p>
+        <form>
+            Birthday (date and time):
+            <input type="datetime" name="birthdaytime">
+        </form>
+        
+        <h2>&lt;input type="datetime-local"&gt;允许用户选择日期和时间（无时区）。</h2>
+        <p>根据浏览器支持，时间选择器会出现在输入字段中。</p>
+        <form>
+            Birthday (date and time):
+            <input type="datetime-local" name="birthdaytime-local">
+        </form>
+        
+        <h2>&lt;input type="color"&gt;用于应该包含颜色的输入字段。</h2>
+        <p>根据浏览器支持，颜色选择器会出现在输入字段中。</p>
+        <form>
+            Your favorite color:
+            <input type="color" name="favcolor">
+        </form>
+        
+        <h2>&lt;input type="range"&gt;用于应该包含一定范围内的值的输入字段。</h2>
+        <p>根据浏览器支持，输入字段能够显示为滑块控件。</p>
+        <form>
+            Stars (0-5):
+            <input type="range" name="stars" value="5" min="0" max="5">
+        </form>
+        
+        <h2>&lt;input type="email"&gt;用于应该包含电子邮件地址的输入字段。</h2>
+        <p>根据浏览器支持，能够在提交时自动对电子邮件地址进行验证。</p>
+        <form>
+            E-mail:
+            <input type="email" name="email">
+        </form>
+        
+        <h2>&lt;input type="search"&gt;用于搜索字段（搜索字段的表现类似常规文本字段）。</h2>
+        <form>
+            Search Google:
+            <input type="search" name="googlesearch">
+        </form>
+        
+        <h2>&lt;input type="tel"&gt;用于应该包含电话号码的输入字段。</h2>
+        <form>
+            Telephone:
+            <input type="tel" name="tel">
+        </form>
+        
+        <h2>&lt;input type="url"&gt;用于应该包含URL地址的输入字段。</h2>
+        <p>根据浏览器支持，能够在提交时自动验证url字段。</p>
+        <form>
+            Your homepage:
+            <input type="url" name="homepage">
+        </form>
+    
+    </div>
+</body>
+
+</html>
