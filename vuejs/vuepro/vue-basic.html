@@ -7,6 +7,54 @@
     <title>vue basic</title>
     <!-- 通过cdn方式引入 vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+      code {
+          color: #E83E8C;
+          font-size: 16px;
+          font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+      }
+      .super {
+        width: 300px;
+        height: 300px;
+        background: pink;
+      }
+      .super .child {
+        position: relative;
+        top: 100px;
+        left: 100px;
+        width: 100px;
+        height: 100px;
+        background: green;
+      }
+      ul.none {
+        list-style-type: none;
+      }
+      .syskey {
+        width: 300px;
+        height: 100px;
+        background: pink;
+      }
+      .box * {
+        padding: 0;
+        margin: 0;
+      }
+      .box {
+        position: relative;
+        width: 600px;
+        height: 100px;
+        background: black;
+      }
+      .ball {
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: pink;
+        transition: all 0.3s ease-in;
+      }
+    </style>
   </head>
   <body>
     <!-- 数据双向绑定 -->
@@ -40,20 +88,104 @@
       <span>也可以简写成：</span>
       <button @[event]="handleClick">@[event]="handleClick"</button>
 
+      <h2>修饰符</h2>
+      <p>修饰符是以半角句号<code>.</code>指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。</p>
+      <h3>事件修饰符</h3>
+      <p>在事件处理程序中调用<code>event.preventDefault()</code>或<code>event.stopPropagation()</code>是非常常见的需求，阻止事件冒泡或捕获或者事件默认行为。
+        尽管我们可以在方法中轻松实现这点，但更好的方式是：方法只有纯粹的数据逻辑，而不是去处理 DOM 事件细节。为了解决这个问题，Vue.js 为 v-on 提供了事件修饰符：</p>
+      <ul>
+        <li><code>.stop</code>（阻止单击事件继续传播）</li>
+        <li><code>.prevent</code>（阻止事件默认行为）</li>
+        <li><code>.capture</code>（添加事件监听器时使用事件捕获模式）</li>
+        <li><code>.self</code>（只当在 event.target 是当前元素自身时触发处理函数 ）</li>
+        <li><code>.once</code>（点击事件将只会触发一次）</li>
+        <li><code>.passive</code>（滚动事件的默认行为(即滚动行为)将会立即触发 ）</li>
+      </ul>
+      <p>例子：</p>
+      <p>.prevent阻止事件默认行为，如提交事件产生的跳转：</p>
+      <form action="" v-on:submit.prevent="submit">
+        <button type="submit">阻止跳转</button>
+      </form>
+      <form action="" v-on:submit="submit">
+        <button type="submit">不阻止跳转</button>
+      </form>
+      <p>未添加<code>.stop</code>修饰符，事件会触发冒泡行为，点击子元素也会触发父元素的click事件</p>
+      <div class="super" @click="superChild('super')">
+        <div class="child" @click="superChild('child')">
+        </div>
+      </div>
+      <p><code>.stop</code>阻止事件继续传播，添加<code>.stop</code>修饰符后，click子元素不会再触发父元素的click事件</p>
+      <div class="super" @click.stop="superChild('super')">
+        <div class="child" @click.stop="superChild('child')">
+        </div>
+      </div>
+
+      <h3>按键修饰符</h3>
+      <p>在监听键盘事件时，我们经常需要检查详细的按键。Vue 允许为 v-on 在监听键盘事件时添加按键修饰符：</p>
+      <ul class="none">
+        <li v-for="key in keys"><code>.{{key}}</code></li>
+      </ul>
+      <p>例子：</p>
+      <p><code>.enter</code>可以在keyup之后判断是否是enter键，如果是则触发函数。但是只有在模块内触发才有效。</p>
+      <input
+        type="text"
+        @keyup.enter="alert('你在.enter修饰下按了enter')"
+      />
+      <p>或者可以直接使用<code>keyCode</code>直接判断按键，例如enter键码为13。</p>
+      <input
+        type="text"
+        @keyup.13="alert('你在.13修饰下按了enter')"
+      />
+
+      <h3>系统修饰符</h3>
+      <p>系统特定的组合功能键，如 <code>ctrl+c</code>、<code>ctrl+v</code>，
+         可以用下列修饰符来实现，仅在按下相应按键时才触发鼠标或键盘事件的监听器：</p>
+      <ul class="none">
+        <li v-for="sysKey in sysKeys"><code>.{{sysKey}}</code></li>
+      </ul>
+      <p>Mac键盘上meta对应command键(⌘)，Windows对应Windows徽标键(⊞)。</p>
+      <p>例子：</p>
+      <p><code>.ctrl</code>放在click后面能识别出按下ctrl键同时的点击事件，其他按键也是，下例包含了上述四种系统键盘按键：</p>
+      <div 
+        class="syskey" 
+        @click.ctrl="alert('你在按下ctrl键的同时点击了这个方框')"
+        @click.alt="alert('你在按下alt键的同时点击了这个方框')"
+        @click.shift="alert('你在按下shift键的同时点击了这个方框')"
+        @click.meta="alert('你在按下meta键的同时点击了这个方框')"
+      >
+        <p>试试看不同按键+click</p>
+      </div>
+      <p><code>.exact</code>是精确按键修饰符，允许你控制由精确的系统修饰符组合触发的事件，
+        如果没有<code>.exact</code>修饰的话，同时按下其他按键也能触发事件，
+        但是有了<code>.exact</code>修饰的话，同时按下其他案件就不会触发该事件。
+      </p>
+      <div 
+        class="syskey"
+        @click.ctrl.exact="alert('你一定只按了ctrl+click')"
+      >
+        <p>试试看ctrl+click和ctrl+shift+click</p>
+      </div>
+      <p><code>.left</code>放在click后面可以识别出左键点击，右键和中间也是，比如下面这个例子涵盖了三者：</p>
+      <div 
+        class="syskey"
+        @click.left="alert('你按了鼠标左键')"
+        @click.middle="alert('你按了鼠标中键')"
+        @click.right="alert('你按了鼠标右键')"
+      >
+        <p>试试看用鼠标的三种按键点击</p>
+      </div>
+
       <h2>other</h2>
       <!-- 运算符 -->
       <p>双大括号+运算符计算：num + 24 = {{num + 24}}</p>
       <!-- 属性值运算操作 -->
-      <p :style="'font-size: '+size">属性值中'font-size: '+size改变字体大小</p>
+      <p :style="'font-size: '+size"><code>:style='font-size: '+size</code>改变字体大小</p>
       <a :href="url">bind当然也可以用于url作为属性值</a>
-      <h2>修饰符</h2>
-      <p>事件修饰符.prevent阻止事件默认行为，如提交事件产生的跳转：</p>
-      <form action="/" v-on:submit.prevent="submit">
-        <button type="submit">阻止跳转</button>
-      </form>
-      <form action="/" v-on:submit="submit">
-        <button type="submit">不阻止跳转</button>
-      </form>
+      <p>下面是一个综合的小游戏，点击试试看：</p>
+      <div class="box" @click.left="changePos">
+        <div class="ball" :style="{left:left+'px'}"></div>
+      </div>
+
     </div>
     <script>
       var app = new Vue({
@@ -63,19 +195,32 @@
           //data:数据选项
           msg: '<h1>hello</h1>',
           num: 20,
+          left: 0,
           ok: true,
           event: 'click',
           name: 'lc',
           size: '20px',
           url: 'https://www.baidu.com',
+          keys: ['enter', 'tab', 'delete', 'esc', 'space', 'up', 'down', 'left', 'right', ],
+          sysKeys: ['ctrl', 'alt', 'shift', 'meta', 'exact(精确按钮修饰符)', 'left', 'right', 'middle'],
         },
         methods: {
-            handleClick: function() {
-                this.name = this.name.split('').reverse().join('');
-            },
-            submit: function() {
-                alert('成功提交！');
+          handleClick: function() {
+              this.name = this.name.split('').reverse().join('');
+          },
+          //声明事件点击监听 handleClick
+          superChild: function (name) {
+            alert(`我是${name}`);
+          },
+          submit: function() {
+              alert('成功提交！');
+          },
+          changePos: function () {
+            if (this.left < 500) {
+              this.left += 25;
             }
+            
+          }
         }
       });
     </script>

@@ -25,5 +25,11 @@
 
 ## Vue.js基础
 
-1. 通过[蓝桥云课](https://www.lanqiao.cn)学习Vue.js的基本用法
+通过[蓝桥云课](https://www.lanqiao.cn)学习Vue.js的基本用法
 
+1. v-bind，v-model以及对应的data，methods
+2. 计算属性computed，其中包括set和get，监听属性watch，过滤器filters
+3. class和style属性还能用字典和数组的形式赋值
+4. v-if和v-else能完成DOM生成的控制，v-show能控制DOM的显示，v-for能循环构建事件
+5. 事件修饰符，按键修饰符，系统修饰符
+6. v-model在表单中有不同的表现，也有不同的修饰符

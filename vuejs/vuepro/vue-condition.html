@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue condition</title>
+    <!-- 通过cdn方式引入 vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+      #app2 {
+        padding: 0;
+        margin: 0;
+      }
+      ul.nav {
+        width: 100%;
+        height: 40px;
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        background: yellowgreen;
+      }
+      ul.nav li {
+        width: 20%;
+        height: 100%;
+        color: white;
+        line-height: 40px;
+        text-align: center;
+        text-transform: uppercase;
+      }
+      code {
+          color: #E83E8C;
+          font-size: 16px;
+          font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>vue condition</h1>
+    <div id="app1">
+      <h2>v-if & v-show</h2>
+      <p>v-if 是从虚拟 DOM 的层面操作，v-if和v-else只有一个会存在在DOM中：</p>
+      <p>&lt;p v-if="display"&gt;&lt;/p&gt;<input type="checkbox" v-model="display" /></p>
+      <p v-if="display">display为true时，v-if所在语句会渲染，反之不会渲染。</p>
+      <p v-else>v-else 必须紧跟在v-if或者v-else-if之后，否则display为false也不会渲染</p>
+      
+      <p>带有 v-show 的元素则始终会被渲染并保留在 DOM 中。</p>
+      <p>&lt;p v-show="show"&gt;&lt;/p&gt;<input type="checkbox" v-model="show" /></p>
+      <p v-show="show">v-show只会简单地切换元素的CSS属性display。</p>
+      
+      <p>一般来说，v-if 会牵涉到虚拟 DOM diff 算法，有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。</p>
+      
+    </div>
+    <script>
+      var app1 = new Vue({
+        el: '#app1',
+        data: {
+          display: true,
+          show: true,
+        },
+      });
+    </script>
+
+    <div id="app2">
+      <h2>v-for</h2>
+      <p>v-for能实现循环渲染创建结构一样的模块，将对象数据渲染成元素。</p>
+      <p>&lt;li v-for="navItem in nav"&gt;&lt;/li&gt;</p>
+      <p>nav: ['home', 'shop', ..., 'histroy']</p>
+      <ul class="nav">
+        <li v-for="navItem in nav">
+          {{navItem}}
+        </li>
+      </ul>
+      
+      <p>&lt;p v-for="val in userInfo"&gt;&lt;/p&gt;</p>
+      <p>userInfo: {name: 'lc', age: 1, sex: man,}</p>
+      <div v-for="val in userInfo">
+        <p>{{val}}</p>
+      </div>
+      <p>由于 JavaScript 的限制，Vue 不能检测对象属性的添加或删除，直接进行 app2.userInfo.height='180cm' 这样操作是不会构成响应式，不会触发视图更新。必须使用 Vue.set(object, key, value) 方法向嵌套对象添加响应式属性，Vue.set(app2.userInfo, 'height', '180cm');</p>
+      
+      <p>为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，需要为每项提供一个唯一 key 属性。理想的 key 值是每项都有的唯一 id。这个特殊的属性相当于 Vue 1.x 的 track-by ，但它的工作方式类似于一个属性，所以需要用 v-bind 来绑定动态值：</p>
+      <p>&lt;div v-for="item in items" :key="item.id"&gt;something&lt;/div&gt;</p>
+      <p>key 并不与 v-for 特别关联，建议尽可能在使用 v-for 时提供 key，除非遍历输出的 DOM 内容非常简单，或者是刻意依赖默认行为以获取性能上的提升。</p>
+      
+      <p>一些操作数组的方法，编译时会检测到数组更新，从而使视图更新。</p>
+      <ul class="func">
+          <li v-for="func in functions"><code>{{func}}</code></li>
+      </ul>
+      <p>上面这些数组操作方法，会直接改变原始数组称为变异方法，会促使视图自动更新。</p>
+      <p>有些数组方法是不直接改变原数组的，这里称他们为非变异方法，例如：filter()、slice()、concat()，都是返回一个新数组，在 Vue 中使用到这些方法，为了促使视图更新，就必须使用数组替换法，将非变异方法返回的新数组直接赋值给的旧数组。</p>
+      <p>this.nav = this.nav.slice(1, 4);</p>
+      <p>由于JavaScript的限制，Vue 不能检测一下变动的数组：</p>
+      <ol>
+        <li>当你利用索引直接设置一个项时，例如：<code>vm.items[indexOfItem] = newValue</code></li>
+        <li>当你修改数组的长度时，例如：<code>vm.items.length = newLength</code></li>
+      </ol>
+      <p>上述改值操作是没有问题的，但是不是响应式的，并不能触发视图更新，需要用其他方法代替。</p>
+      <p>例如<code>app.items[indexOfItem] = newValue;</code>
+      可以用<code>Vue.set(vm.items, indexOfItem, newValue);</code>
+      或者<code>vm.items.splice(indexOfItem, 1, newValue);</code>替代。</p>
+    </div>
+    <script>
+      var app2 = new Vue({
+        el: '#app2',
+        data: {
+          nav: ['home', 'shop', 'contact', 'about', 'name', 'more', 'histroy'],
+          userInfo: {
+            name: 'lc',
+            age: 1,
+            sex: 'man',
+          },
+          functions: ['push()', 'pop()', 'shift()', 'unshift()', 'splice()', 'sort()', 'reverse()', ],
+        },
+      });
+    </script>
+    <div id="app3">
+      <p>显示一个数组的过滤或排序副本，而不实际改变或重置原始数据。在这种情况下，可以创建返回过滤或排序数组的计算属性computed。</p>
+      <span v-for="number in oddNumber">{{number}}</span>
+      <p>或者直接用method去返回新的数组。</p>
+      <span v-for="number in getOddNumber()">{{number}}</span>
+      <p>在开发中我们会遇到要需要一段值的情况，可能是字符拼接，或者是分页，在 Vue 中我们可以用 v-for 轻松实现。</p>
+      <p>&lt;span v-for="number in 10" :style="styleObject"&gt;{{s}}&lt;/span&gt;</p>
+      <span v-for="number in 10" :style="styleObject">{{number}}</span>
+    </div>
+    <script>
+      var app3 = new Vue({
+        el: '#app3',
+        data: {
+          s: 'number',
+          numberArray: [1, 2, 3, 4, 5, 6, 7, 8],
+          styleObject: {
+            fontSize: '14px',
+            color: '#fff',
+            background: 'green',
+            padding: '5px 10px',
+            border: '1px solid #fff',
+          },
+        },
+        computed: {
+          //计算 numberArray 中为奇数的 oddNumber 奇数数组
+          oddNumber: function () {
+            return this.numberArray.filter(function (number) {
+              return number % 2 === 1;
+            });
+          },
+        },
+        methods: {
+          //定一个一个获取数组内奇数的方法   filter 数组对象的过滤方法
+          getOddNumber: function () {
+            return this.numberArray.filter(function (number) {
+              return number % 2 === 1;
+            });
+          },
+        },
+      });
+    </script>
+    <div id="app4">
+      <p>v-for 与 v-if 可以搭配使用，例如在数组有元素的时候循环渲染，没有就渲染提示信息。</p>
+      <button @click="decreaseNumber">减少数字</button>
+      <div v-if="numbers.length">
+        <div v-for="item in numbers">
+          {{item}}
+        </div>
+      </div>
+      <div style="color:red" v-else>请添加数组元素</div>
+    </div>
+    <script>
+      var app4 = new Vue({
+        el: '#app4',
+        data: {
+          numbers: [1, 2, 3, 4],
+        },
+        methods: {
+          decreaseNumber: function () {
+            this.numbers.pop();
+          },
+        },
+      });
+    </script>
+
+    <style>
+      #test * {
+        padding: 0;
+        margin: 0;
+      }
+      #test a {
+        text-decoration: none;
+        color: #fff;
+      }
+      #test ul{
+          list-style: none;
+      }
+      #test nav,
+      #test ul {
+        width: 100%;
+        /* 开启弹性盒模型 布局方式 */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        background: yellowgreen;
+      }
+      #test nav > ul > li {
+        width: 30%;
+        height: 100%;
+        text-align: center;
+        line-height: 50px;
+      }
+      #test nav > ul > li:hover{
+        box-shadow: 1px 0px 10px #fff;
+      }
+      #test nav > ul > li > ul {
+        display: flex;
+        flex-direction: column;
+      }
+      #test nav > ul > li > ul > li {
+        box-shadow: 1px 0px 10px #fff;
+      }
+      #test nav > ul > li > a {
+        text-transform: uppercase;
+      }
+    </style>
+    <div id="test">
+      <h2>综合练习</h2>
+        <nav>
+          <ul>
+            <li 
+              v-for="(nav,index) in navbar"
+              :key="index"
+              @mouseover="currentIndex(index)"
+              @mouseout="changeIndex"
+            >
+              <a href="javascript:;">{{nav.name}}</a>
+              <ul v-if="nav.child" v-show="current===index">
+                <li v-for="item in nav.child">
+                  <a href="javascript:;">{{item}}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+    </div>
+    <script>
+      var test = new Vue ({
+        el: '#test',
+        data: {
+          navbar: [
+            {
+              name: 'home',
+              child: ['homeItem', 'homeItem'],
+            },
+            {
+              name: 'contact',
+              child: ['contactItem', 'contactItem'],
+            },
+            {
+              name: 'about',
+            },
+          ],
+          current: null,
+        },
+        methods: {
+          currentIndex: function (index) {
+            this.current = index;
+          },
+          changeIndex: function () {
+            this.current = null;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue form</title>
+    <!-- 通过cdn方式引入 vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+      code {
+          color: #E83E8C;
+          font-size: 16px;
+          font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>vue form</h1>
+    <p>表单中可以用v-model来绑定值，在各种数据类型中都有应用。</p>
+    <div id="app1">
+      <h2>文本</h2>
+      <p>文本绑定v-model，data数据项中声明绑定数据项，就可以完成双向数据绑定。</p>
+      <input v-model="msg" placeholder="请输入..." />
+      <p>上面的文本框输入的是: {{ msg }}</p>
+      <p style="white-space: pre-line;">多行文本也是一样的操作，比如下面文本框内是：{{ message }}</p>
+      <textarea v-model="message" placeholder="add multiple lines"></textarea>
+
+      <h2>单选</h2>
+      <!-- 将单选按钮绑定到同一个picked -->
+      <p>将单选按钮绑定到同一个picked，即可完成数据绑定。</p>
+      <p>当第一个单选被选中时，picked的值为第一个单选按钮的value，
+        同样当第二个单选被选中时，picked的值为第二个单选按钮的value。</p>
+      <p>&lt;input type="radio" id="one" value="One" v-model="picked" /&gt;<br />
+         &lt;label for="one"&gt;One&lt;/label&gt;<br />
+         &lt;input type="radio" id="two" value="Two" v-model="picked" /&gt;<br />
+         &lt;label for="one"&gt;One&lt;/label&gt;<br />
+      </p>
+      <input type="radio" id="one" value="One" v-model="picked" />
+      <label for="one">One</label>
+      <br />
+      <input type="radio" id="two" value="Two" v-model="picked" />
+      <label for="two">Two</label>
+      <br />
+      <span>Picked: {{ picked }}</span>
+
+      <h2>复选</h2>
+      <p>复选框绑定的是一个布尔值，同样在复选框元素上使用v-model指令，在实例data中声明checked，即可完成复选框数据的双向绑定。</p>
+      <p>&lt;input type="checkbox" id="checkbox" v-model="checked" /&gt;<br />
+        &lt;label for="checkbox"&gt;{{s_checked}}&lt;/label&gt;<br />
+      </p>
+      <input type="checkbox" id="checkbox" v-model="checked" />
+      <label for="checkbox">{{ checked }}</label>
+      <p>或者可以设置true-value和false-value使之绑定这两者的属性值：</p>
+      <p>&lt;input type="checkbox" v-model="toggle" true-value="yes" false-value="no" /&gt;</p>
+      <input type="checkbox" v-model="toggle" true-value="yes" false-value="no" />
+      <p>toggle: {{toggle}}</p>
+      <p>还可以绑定多个复选框：</p>
+      <p>&lt;input type="checkbox" id="lc1" value="lc1" v-model="checked" /&gt;<br />
+        &lt;label for="checkbox"&gt;{{s_checked}}&lt;/label&gt;<br />
+      </p>
+      <input type="checkbox" id="lc1" value="lc1" v-model="checkedNames" />
+      <label for="lc1">lc1</label>
+      <input type="checkbox" id="lc2" value="lc2" v-model="checkedNames" />
+      <label for="lc2">lc2</label>
+      <input type="checkbox" id="lc3" value="lc3" v-model="checkedNames" />
+      <label for="lc3">lc3</label>
+      <br />
+      <span>Checked names: {{ checkedNames }}</span>
+
+      <h2>选择</h2>
+      <!-- select标签是绑定  数据项 selected -->
+      <p>select选项的用法也一样，不过不一定需要value：</p>
+      <p>
+        &lt;select v-model="selected"&gt; &lt;option&gt;A&lt;/option&gt; &lt;/select&gt;
+      </p>
+      <select v-model="selected">
+        <option disabled value="">请选择</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+      <span>Selected: {{selected}}</span>
+      <p>也可以设置value使结果呈现不同的值，甚至v-bind:value绑定其他值：</p>
+      <p> &lt;option :value="optionValue"&gt;DEF&lt;/option&gt; </p>
+      <!-- 当选中第一个选项时，`selected` 为字符串 "abc" -->
+      <select v-model="selected2">
+        <!-- 固定赋值value -->
+        <option value="abc">ABC</option>
+        <!-- 使用 v-bind 绑定值 -->
+        <option v-bind:value="optionValue">DEF</option>
+      </select>
+      <span>{{selected2}}</span>
+
+    </div>
+    <script>
+      var app1 = new Vue({
+        el: '#app1',
+        data: {
+          msg: '',
+          message: '',
+          picked: '',
+          checked: true,
+          s_checked: '{{ checked }}',
+          checkedNames: [],
+          selected: '',
+          toggle: '',
+          selected2: '',
+          optionValue: 'ghi',
+        },
+      });
+    </script>
+
+    <div id="app2">
+      <h2>修饰符</h2>
+      <p>表单中也有修饰符，可以用在v-model后：</p>
+      <ul>
+          <li><code>.lazy</code></li>
+          <li><code>.number</code></li>
+          <li><code>.trim</code></li>
+      </ul>
+      <p>可能开发中不需要数据实时更新，那么可以使用<code>.lazy</code>修饰符，可以将抛出事件由 input 改为 change，使表单元素惰性更新，不实时更新。</p>
+      <!--使用 .lazy 修饰符将文本框 抛出的事件改为 change 事件，不再实时更新，只有文本框失去焦点才更新数据 惰性更新 -->
+      <input v-model.lazy="msg" />
+      <p>{{msg}}</p>
+      <p>如果想自动将用户的输入值转为数值类型，可以给v-model添加<code>.number</code>修饰符：</p>
+      <p>这通常很有用，因为即使在type="number"时，HTML 输入元素的值返回字符串（默认），需要自己进行类型转换。
+          如果这个值无法被parseFloat()解析，则会返回原始的值。给v-model添加.number修饰符，
+          用户即使输入的是非数值类型，也会进行转换，无法转换时，才会返回原始的字符串。</p>
+      <p>没有使用 .number 修饰符</p>
+      <input v-model="number1" type="number" />
+      <!-- 使用typeof对值类型检测 -->
+      <p>{{typeof(number1)}}</p>
+      <p>使用 .number 修饰符</p>
+      <input v-model.number="number2" type="number" />
+      <!-- 使用typeof对值类型检测 -->
+      <p>{{typeof(number2)}}</p>
+      <p><code>.trim</code>能够自动过滤结果首尾的空格：</p>
+      <input v-model.trim="msg2" type="text" />
+      <p>首尾空格被过滤了：{{msg2}}</p>
+      <p>如果没有用.trim，上述例子还是会除去前后的空格，但这是p标签中会自动除去多余空格导致的。</p>
+    </div>
+    <script>
+      var app2 = new Vue({
+        el: '#app2',
+        data: {
+          msg: 'hello',
+          number1: '',
+          number2: '',
+          msg2: '',
+        },
+      });
+    </script>
+
+  </body>
+</html>
