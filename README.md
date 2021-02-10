@@ -15,7 +15,8 @@
 2. 各类选择器
 3. *流动(默认)、浮动(float)、层(layer)*
 4. 用HTML+CSS搭建简单的网页
-5. *CSS3*
+5. CSS3 动画
+6. *CSS3*
 
 ## JavaScript基础
 
@@ -33,3 +34,8 @@
 4. v-if和v-else能完成DOM生成的控制，v-show能控制DOM的显示，v-for能循环构建事件
 5. 事件修饰符，按键修饰符，系统修饰符
 6. v-model在表单中有不同的表现，也有不同的修饰符
+7. component能够在局部/全局作为组件，组件之间能通信，由此还能组成动态组件
+8. *组件生命周期函数*
+9. transition  及其与 CSS3、JavaScript的结合
+10. *ES6模块规范*
+

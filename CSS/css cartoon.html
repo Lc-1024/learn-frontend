@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CSS3 cartoon</title>
+    <style>
+      code {
+        color: #E83E8C;
+        font-size: 16px;
+        font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+      }
+      #box1 {
+        width: 300px;
+        height: 200px;
+        background-color: red; /* 浏览器不支持时显示 */
+        background-image: linear-gradient(to bottom right, red, yellow);
+      }
+      #box2 {
+        width: 300px;
+        height: 200px;
+        background-color: red; /* 浏览器不支持的时候显示 */
+        background-image: radial-gradient(red 25%, yellow 35%, pink 60%);
+      }
+      #box3 {
+        width: 300px;
+        height: 200px;
+        background-color: red; /* 浏览器不支持的时候显示 */
+        background-image: radial-gradient(circle, red 25%, yellow 35%, pink 60%);
+      }
+      .div1 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: lightgreen;
+        opacity: 0.5;
+        transition: 2s ease-in-out;
+        /*transition-property 默认为 all，所以将应用到 width 和 height 上*/
+      }
+      .div1:hover {
+        width: 400px;
+        height: 400px;
+        opacity: 1;
+      }
+      .div2 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: cyan;
+        opacity: 0.5;
+        transition: height 2s cubic-bezier(0.25, 0.1, 0.25, 1);
+        /*transition-property 只指定了 height，所以 width 的改变不会使用过渡效果;cubic-bezier(0.25,0.1,0.25,1) 相当于 ease，慢速开始，然后变快，慢速结束。*/
+      }
+      .div2:hover {
+        width: 400px;
+        height: 400px;
+        opacity: 1;
+      }
+      .div3 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: orange;
+        opacity: 0.5;
+        transition: 2s ease-in-out 2s;
+        /*transition-delay 设置为 2s，当鼠标移到该盒子上，过渡效果将会延迟 2s 开始、结束*/
+      }
+      .div3:hover {
+        width: 400px;
+        height: 400px;
+        opacity: 1;
+      }
+      .div4 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: grey;
+        opacity: 0.5;
+        transition: ;
+        /*所有属性使用默认值，transition-timing-function 的默认值为 0s，所以 div4 无过渡效果*/
+      }
+      .div4:hover {
+        width: 400px;
+        height: 400px;
+        opacity: 1;
+      }
+      .transform1 {
+        width: 300px;
+        height: 300px;
+        margin: 60px 200px;
+        border: 2px solid;
+        text-align: center;
+      }
+      .transform1 p,
+      .transform2 p,
+      .transform3 p,
+      .transform4 p,
+      .transform5 p,
+      .transform6 p,
+      .transform7 p {
+        margin: 0px;
+      }
+      .transform1 div {
+        width: 300px;
+        height: 300px;
+        background: lightgreen;
+        transform: rotate(45deg);
+      }
+      .transform-origin div {
+        transform-origin: 10% 10%;
+      }
+      #transform2 {
+        margin-top: 150px;
+      }
+      .transform2 {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #bbb;
+        margin: 50px;
+        /* 在父元素中设置transform-style: preserve-3d; */
+        transform-style: preserve-3d;
+        transform: perspective(600px);
+      }
+      .transform2 div {
+        width: 200px;
+        height: 200px;
+        background: lightgreen;
+        transform: rotateX(60deg);
+      }
+      .transform3 {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #bbb;
+        margin: 50px;
+        /* 在父元素中设置transform-style: flat; */
+        transform-style: flat;
+        transform: perspective(600px);
+      }
+      .transform3 div {
+        width: 200px;
+        height: 200px;
+        background: lightgreen;
+        transform: rotateX(60deg);
+      }
+      .transform4 {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin: 50px;
+        border: 1px solid #bbb;
+      }
+      .transform4 div {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: lightgreen;
+        transform: perspective(600px) rotateY(45deg);
+        /*设置了透视和变换方式*/
+      }
+      .transform5 {
+        width: 300px;
+        height: 300px;
+        margin: 50px;
+        margin-bottom: 100px;
+        border: 1px solid #bbb;
+      }
+      .transform5 div {
+        width: 100%;
+        height: 100%;
+        background: lightgreen;
+        /*设置了透视和变换方式*/
+        transform: perspective(300px) rotateY(45deg);
+      }
+      .transform6 {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        margin: 100px 50px;
+        border: 1px solid #bbb;
+      }
+      .transform6 div {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        background: lightgreen;
+        /*设置了透视和变换方式*/
+        transform: perspective(300px) rotateY(45deg);
+        perspective-origin: 0% 0%;
+      }
+      .transform7 {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        border: 1px solid #bbb;
+      }
+      .transform7 .type1 {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 200px;
+        height: 200px;
+        background: lightgreen;
+        /* 将 div 元素都翻转 180deg，翻转到背面 */
+        transform: rotateY(180deg);
+        backface-visibility: hidden;
+      }
+      .transform7 .type2 {
+        width: 200px;
+        height: 200px;
+        background: lightgreen;
+        /* 将 div 元素都翻转 180deg，翻转到背面 */
+        transform: rotateY(180deg);
+        backface-visibility: visible;
+      }
+      .transform8 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: lightgreen;
+        opacity: 0.5;
+        transition: 2s;
+      }
+      .transform8:hover {
+        transform: translate(30px, 40px);
+        /*translate(x,y)*/
+        opacity: 1;
+      }
+      .transform9 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: cyan;
+        opacity: 0.5;
+        transition: 2s;
+      }
+      .transform9:hover {
+        transform: rotate(180deg);
+        /*rotate(angle)*/
+        opacity: 1;
+      }
+      .transform10 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: orange;
+        opacity: 0.5;
+        transition: 2s;
+      }
+      .transform10:hover {
+        transform: skew(0deg, 30deg);
+        /*skew(angle,angle)*/
+        opacity: 1;
+      }
+      .transform11 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: lightgreen;
+        opacity: 0.5;
+        transition: 2s;
+      }
+      .transform11:hover {
+        /*X 轴旋转*/
+        transform: rotateX(180deg);
+        opacity: 1;
+      }
+      .transform12 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: cyan;
+        opacity: 0.5;
+        transition: 2s;
+      }
+      .transform12:hover {
+        /*Y 轴伸缩*/
+        transform: scaleY(2);
+        opacity: 1;
+      }
+      .transform13 {
+        margin: 50px;
+        width: 200px;
+        height: 200px;
+        background-color: orange;
+        opacity: 0.5;
+        transition: 2s;
+      }
+      .transform13:hover {
+        /*X 轴移动*/
+        transform: translateX(50%);
+        opacity: 1;
+      }
+      @keyframes myfirstcartoon {
+        0% {
+          background-color: lightgreen;
+        }
+        25% {
+          background-color: blue;
+        }
+        50% {
+          background-color: orange;
+        }
+        75% {
+          background-color: red;
+        }
+        100% {
+          background-color: yellow;
+        }
+      }
+      .animation1 {
+        width: 400px;
+        height: 100px;
+        animation: myfirstcartoon 5s;
+      }
+      .animation2 {
+        width: 400px;
+        height: 100px;
+        animation: myfirstcartoon 5s ease-in-out 1s infinite alternate;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>CSS3 cartoon</h1>
+
+    <div class="jianbian">
+    <h2>渐变</h2>
+    <p>CSS3支持浏览器内实现两种渐变效果：</p>
+    <ul>
+      <li>线性渐变<code>background: linear-gradient(to direction | angle, color-stop1, color-stop2...);</code></li>
+      <li>径向渐变<code>background-image: radial-gradient(shape size at position, start-color, ..., last-color);</code></li>
+    </ul>
+    <p>从顶部开始（默认）的线性渐变。起点是红色，慢慢过渡到蓝色：</p>
+    <p><code>background-image: linear-gradient(#e66465, #9198e5);</code></p>
+    <div id="box1"></div>
+    <p>径向渐变 - 颜色结点均匀分布（默认情况下）：</p>
+    <p><code>background-image: radial-gradient(red, yellow, blue);</code></p>
+    <div id="box2"></div>
+    <p>设置形状 - 颜色不均匀分布：</p>
+    <p><code>background-image: radial-gradient(circle, red 25%, yellow 35%, pink 60%);}</code></p>
+    <div id="box3"></div>
+    </div>
+
+    <div class="transition">
+    <h2>transition</h2>
+    <p>属性 transition 应用于元素的过渡效果，使用时需要指定希望过渡的属性以及过渡持续的时间。</p>
+    <p>对应四个值：<code>transition: transition-property | transition-duration | transition-timing-function | transition-delay;</code></p>
+    <ul>
+      <li>transition-property 规定了应用于过渡效果的 CSS 属性的名称，默认值为 <code>all</code> 。</li>
+      <li>transition-duration 规定了过渡持续的时间，默认值为 <code>0s</code>。也就是说，如果不指定过渡时间，那么将不会产生过渡效果。</li>
+      <li>transition-timing-function 规定了过渡效果的时间曲线，如 <code>ease</code> （默认）：慢速开始，中间变快，慢速结束。<code>liner</code> ：匀速运动。</li>
+      <li>transition-delay 规定了过渡效果的延迟时间，默认为 <code>0s</code> 。</li>
+    </ul>
+    <p><code>transition-timing-function</code> 有一些常用的值：</p>
+    <ul>
+      <li>linear:匀速，相当于（<code>cubic-bezier(0,0,1,1)</code>）。</li>
+      <li>ease:慢速开始，然后变快，然后慢速结束，相当于（<code>cubic-bezier(0.25,0.1,0.25,1)</code>）。</li>
+      <li>ease-in:慢速开始，相当于（<code>cubic-bezier(0.42,0,1,1)</code>）。</li>
+      <li>ease-out:慢速结束，相当于（<code>cubic-bezier(0,0,0.58,1)</code>）。</li>
+      <li>ease-in-out:慢速开始，慢速结束，相当于（<code>cubic-bezier(0.42,0,0.58,1)</code>）。</li>
+      <li>cubic-bezier(n,n,n,n):在 <code>cubic-bezier</code> 函数中定义自己的值，取值范围是 <code>0 ~ 1</code>。</li>
+    </ul>
+    <p>transition-property 默认为 all，所以将应用到 width 和 height 上</p>
+    <div class="div1">div1 transition: 2s ease-in-out;</div>
+    <p>transition-property 只指定了 height，所以 width 的改变不会使用过渡效果;cubic-bezier(0.25,0.1,0.25,1) 相当于 ease，慢速开始，然后变快，慢速结束。</p>
+    <div class="div2">
+      div2 transition: height 2s cubic-bezier(0.25,0.1,0.25,1);
+    </div>
+    <p>transition-delay 设置为 2s，当鼠标移到该盒子上，过渡效果将会延迟 2s 开始、结束</p>
+    <div class="div3">div3 transition: 2s ease-in-out 2s;</div>
+    <p>所有属性使用默认值，transition-timing-function 的默认值为 0s，所以 div4 无过渡效果</p>
+    <div class="div4">div4 transition: ;</div>
+    <p>可以发现，<code>div1</code> 的持续时间设置为 <code>2s</code>，效果采用 <code>ease-in-out</code>，其余为默认值，所以 <code>opacity</code>、<code>width</code>、<code>height</code> 的改变都会采用过渡效果；
+        <code>div2</code> 中指定了过渡的属性为 <code>height</code>，所以其它两个属性不会使用过渡效果；
+        <code>div3</code> 设置了 <code>transition-delay</code>，过渡效果的开始和结束都会延迟相应的时间；
+        <code>div4</code> 所有的值都使用默认值，包括持续时间 <code>0s</code>，所以 <code>div4</code> 无过渡效果，变化会非常生硬。
+    </p>
+    </div>
+
+    <div class="transform">
+
+    <h2>2D/3D transform</h2>
+    <p>转换有下列属性：</p>
+    <ul>
+      <li><code>transform:</code> 将 2D 或 3D 转换应用到元素上去</li>
+      <li><code>rotate/rotateX/rotateY()</code>: 绕变换基点Z、X、Y轴旋转(45deg等)</li>
+      <li><code>transform-origin：x-axis y-axis z-axis</code> 可以改变被转换元素的位置</li>
+    </ul>
+    <div class="transform1">
+      <div>
+        <p>transform: rotate(45deg);</p>
+        <p>变换基点默认为中心，转过45deg</p>
+      </div>
+    </div>
+    <div class="transform1 transform-origin">
+        <div>
+          <p>transform: rotate(45deg);</p>
+          <p>transform-origin: 10% 10%;</p>
+          <p>变换基点为x=10%,y=10%处</p>
+        </div>
+    </div>
+
+    <ul id="transform2"><li><code>transform-style：flat | preserved-3d</code> 规定被嵌套元素如何在 3D 空间中显示</li></ul>
+    <p>transform-style: preserve-3d; 子元素(内部div)保留3D效果</p>
+    <p>transform: perspective(600px); </p>
+    <div class="transform2">
+        <div><p>transform: rotateX(60deg);</p></div>
+    </div>
+    <p>transform-style: flat; 子元素(内部div)不保留3D效果</p>
+    <p>transform: perspective(600px);</p>
+    <div class="transform3">
+        <div><p>transform: rotateX(60deg);</p></div>
+    </div>
+
+    <ul><li><code>perspective: number | none</code>规定 3D 元素的透视效果，相当于人从number高度看下。与 perspective-origin 结合使用，可以改变 3D 元素的底部位置</li></ul>
+    <div class="transform4">
+        <div><p>transform: perspective(600px) rotateY(45deg);</p></div>
+    </div>
+    <div class="transform5">
+        <div><p>transform: perspective(300px) rotateY(45deg);</p></div>
+    </div>
+    <ul><li><code>perspective-origin: x-axis y-axis;</code>规定 3D 元素的底部位置，将透视聚集点改变到其他位置，目前浏览器都不支持。</li></ul>
+    <div class="transform6">
+        <div>
+            <p>transform: perspective(300px) rotateY(45deg);</p>
+            <p>perspective-origin: 0% 0%;</p>
+        </div>
+    </div>
+
+    <ul><li><code>backface-visibility: visible|hidden</code>定义元素在不面对屏幕时是否可见</li></ul>
+    <p>transform: rotateY(180deg);</p>
+    <div class="transform7">
+        <p>this is hidden</p>
+        <div class="type1"><p>backface-visibility: hidden;</p></div>
+    </div>
+    <div class="transform7">
+        <div class="type2"><p>backface-visibility: visible;</p></div>
+    </div>
+
+    <h3>2D 转换</h3>
+    <p>2D转换有以下几种常用方法：</p>
+    <ul>
+        <li>translate(x,y) ：根据原始位置的 <code>x</code> 、<code>y</code> 轴位置，分别偏离 <code>x</code> 、<code>y</code> 的距离。</li>
+        <li>rotate(angle) ：根据给定的 <code>angle</code> 大小，顺时针旋转，如果 <code>angle</code> 为负，则逆时针旋转。</li>
+        <li>scale(x,y) ：根据 <code>x</code> 、<code>y</code> 的值，对应的放大宽度和高度。</li>
+        <li>skew(angle,angle) ：根据给定的两个角度，分别在水平方向和垂直方向倾斜，第二个角度默认为 <code>0</code> 。</li>
+        <li>matrix() ：matrix 变换</li>
+    </ul>
+    <p>transition: 2s;</p>
+    <div class="transform8">transform: translate(30px, 40px);</div>
+    <div class="transform9">transform: rotate(180deg);</div>
+    <div class="transform10">transform: skew(0deg, 30deg);</div>
+
+    <h3>3D 转换</h3>
+    <p>3D 转换语法与 2D 转换语法较为类似：</p>
+    <ul>
+        <li>translate3d(x,y,z):定义 3D 转化，给出三个值，分别应用于三个坐标轴上</li>
+        <li>translateX/Y/Z(x/y/z):定义 3D 转化，仅用于 X/Y/Z 轴</li>
+        <li>scale3d(x,y,z):定义 3D 缩放转换</li>
+        <li>scaleX/Y/Z(x/y/z):定义 3D 缩放转换，仅用于 X/Y/Z 轴</li>
+        <li>rotate3d(x,y,z,angle):定义 3D 旋转</li>
+        <li>rotateX/Y/Z(angle):定义沿 X/Y/Z 轴的 3D 旋转</li>
+        <li>perspective:定义 3D 转换元素的透视视图</li>
+    </ul>
+    <p>transition: 2s;</p>
+    <div class="transform11">transform: rotateX(180deg);</div>
+    <div class="transform12">transform: scaleY(2);</div>
+    <div class="transform13">transform: translateX(50%);</div>
+    
+    </div>
+
+    <div class="animation">
+    
+    <h2>@keyframes & animation</h2>
+    <p>给出变化的关键帧，并且给定进度(%)，给出变化时间，其余的将自动计算完成。</p>
+    <pre>
+    @keyframes name {
+      0% {
+        /*css code 描述关键帧属性*/
+      }
+      ...
+      100% {
+        /*css code 描述关键帧属性*/
+      }
+    }
+    </pre>
+    <p>动画创建完成后，我们使用<code>animation</code>属性将动画绑定到对应的元素上去，并给出运行时间，就完成了一个简单的动画。</p>
+    <div class="animation1">
+        <p>animation: myfirstcartoon 5s;</p>
+        <p>动画总运行时间为5s</p>
+    </div>
+    <p>CSS3 动画还有很多有趣的属性：</p>
+    <ul>
+        <li>animation: 动画属性的简写属性，除了 <code>animation-play-state</code> 属性。</li>
+        <li>animaiton-name：规定 <code>@keyframes</code> 动画的名称。</li>
+        <li>animation-duration：规定动画一个周期的时间，默认为 <code>0</code>。</li>
+        <li>animaiton-timing-function：规定动画的速度曲线。默认为 <code>ease</code>。</li>
+        <li>animaiton-delay：规定动画的播放延迟时间。</li>
+        <li>animaiton-iteration-count：规定动画播放次数，默认为 <code>1</code>。取值为 <code>infinite</code> 时，动画被无限次播放。</li>
+        <li>animation-direction：规定动画是否在下一周期逆向播放，默认为 <code>normal</code>。取值为 <code>normal</code> 时，动画正常播放，取值为 <code>alternate</code> 时，动画轮流反向播放。</li>
+        <li>animation-play-state：规定动画是否正在运行或暂停，默认为 <code>running</code>；暂停时为 <code>paused</code>。</li>
+        <li>animation-fill-mode：规定动画在播放之前或之后，其动画效果是否可见。取值为 <code>none</code> 时，不改变默认行为；取值为 <code>forwards</code> 时，在动画完成后，保持最后一个属性；取值为 <code>backwards</code> 时，在动画开始之前应用开始属性值；取值为 <code>both</code> 时，向前向后的模式都将被启用。</li>
+    </ul>
+    <div class="animation2">
+        <p>animation: myfirstcartoon 5s ease-in-out 1s infinite alternate;</p>
+        <p>lightgreen->blue->orange->red->yellow</p>
+    </div>
+    </div>
+
+  </body>
+</html>

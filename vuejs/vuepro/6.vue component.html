@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue component</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+      code {
+        color: #E83E8C;
+        font-size: 16px;
+        font-family: SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app1">
+      <h1>vue component</h1>
+      <h2>全局组件</h2>
+      <p><code>Vue.component()</code> 方法注册全局组件：<code>Vue.component(组件名字,template:{元素标签})</code></p>
+
+      <lc></lc>
+      <lc></lc>
+      <lc></lc>
+    </div>
+    <script>
+      Vue.component('lc', {
+        template: '<h1>全局组件</h1>',
+      });
+      var app1 = new Vue({
+        el: '#app1',
+      });
+    </script>
+
+    <div id="app2">
+      <h2>局部组件</h2>
+      <p>局部组件在父级 components 对象中声明，局部组件只有它的父级才能调用：</p>
+      <pre>
+        var newChildComponent = {
+          template: '&lt;h2&gt;局部组件声明&lt;/h2&gt;',
+        };
+        var header = new Vue({
+          el: '#header',
+          // 子组件必须声明后使用，不然不能起效
+          components: {
+            'lc-header': childComponent,
+          },
+        });
+      </pre>
+      <div id="header">
+        <lc-header></lc-header>
+      </div>
+      <div id="mid">
+        <lc-mid></lc-mid>
+      </div>
+    </div>
+    <script>
+      //头部组件
+      var childComponent = {
+        template: '<h2>我是局部组件header，只有我们父级才能调用</h2>',
+      };
+      //中间部分组件
+      var childComponent2 = {
+        template: '<h2>我是局部组件mid，只有我们父级才能调用</h2>',
+      };
+      //header vm
+      var header = new Vue({
+        el: '#header',
+        //子组件必须声明后使用，不然不能起效
+        components: {
+          'lc-header': childComponent,
+        },
+      });
+      var mid = new Vue({
+        el: '#mid',
+        //子组件必须声明后使用，不然不能起效
+        components: {
+          'lc-mid': childComponent2,
+        },
+      });
+    </script>
+
+    <div>
+      <h2>全局可复用组件</h2>
+      <p>组件的优点就在于能够复用，一次代码编写，整个项目受用。</p>
+      <p>复用组件内的 data 必须是一个函数，如果是一个对象（引用类型），组件与组件间会相互影响，组件数据不能独立管理。</p>
+      <pre>
+        //注册一个全局可复用组件
+        Vue.component('button-counter', {
+            //data必须是一个函数不然会影响其他组件
+            data() {
+            return {
+                counter: 0,
+            };
+            },
+            template: '&lt;button @click="counter++"&gt;{{counter}}&lt;/button&gt;',
+        });
+      </pre>
+    </div>
+    <div id="app3">
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <p>如果data使用对象则结果会全部关联，共同增加。</p>
+    </div>
+    <script>
+      //注册一个全局可复用组件
+      Vue.component('button-counter', {
+        //data必须是一个函数不然会影响其他组件
+        data() {
+          return {
+            counter: 0,
+          };
+        },
+        template: '<button @click="counter++">{{counter}}</button>',
+      });
+      var app3 = new Vue({
+        el: '#app3',
+      });
+    </script>
+
+    <div>
+      <h2>组件间通信</h2>
+      <h3>子组件向父组件传递数据</h3>
+      <p>props 是一个单向的数据流，只允许父组件向子组件传值，子组件需要显式地用 props 选项声明 "prop"：</p>
+      <code>Vue.component('name', {props: ['postTitle'], template: '&lt;p&gt;{{postTitle}}&lt;/p&gt;'});</code>
+      <p>props也可以用字典声明，并且为每个元素定义类型(Number, String)。</p>
+      <p>使用 DOM 中的模板时，camelCase (驼峰命名法) 的 prop 需要使用其等价的 kebab-case (短横线分隔命名) 命名。</p>
+      <div id='app4'>
+        <title-component post-title="lc1"></title-component>
+        <title-component post-title="lc2"></title-component>
+        <title-component post-title="lc3"></title-component>
+      </div>
+      <h3>子组件向父组件通信</h3>
+      <p>定义一个子组件，template绑定click事件，
+          当click事件触发就使用 emit 自定义一个事件send-msg，向其传入参数 “我是子组件请求与你通信”，
+          子组件标签上绑定自定义事件 send-msg，并绑定上父级的方法 getMsg，即可完成了子父组件通信</p>
+      <pre>
+        &lt;child-component5 v-on:send-msg="getMsg"&gt;&lt;/child-component5&gt;
+        Vue.component('child-component5', {
+            // 多行要用``包括
+            template: `
+                &lt;button v-on:click="$emit('send-msg','我是子组件请求与你通信')"&gt;
+                Click me
+                &lt;/button&gt;
+                `,
+          });
+          var app5 = new Vue({
+            el: '#app5',
+            methods: {
+              getMsg: function (msg) {
+                //弹出子组件传递的信息
+                alert(msg);
+              },
+            },
+          });
+      </pre>
+      <div id="app5">
+        <child-component5 v-on:send-msg="getMsg"></child-component5>
+      </div>
+      <p>子组件向父组件数据传递套路：</p>
+      <p>第一步：子组件绑定事件。</p>
+      <p>第二步：子组件绑定事件触发，使用 $emit 创建自定义事件并传入需要传值给父组件的数据。</p>
+      <p>第三步：在子组件标签上 用 v-on 绑定自定义事件，在父组件中声明自定义事件处理的方法。</p>
+      <p>第四步：父组件方法，接受自定义事件传的参数，就完成了整个由下到上的数据流。</p>
+    </div>
+    <script>
+      //注册一个 title组件,通过传入不同的title值,渲染不同的东西
+      //组件上 传递的 props 属性名为 kebab-case（短横线分隔命名)的要转换为驼峰命名
+      Vue.component('title-component', {
+        props: ['postTitle'], //post-title 转换为驼峰命名
+        template: '<p>{{postTitle}}</p>',
+      });
+      var app4 = new Vue({
+        el: '#app4',
+      });
+      //定义一个子组件，template绑定click 事件
+      //当click事件触发就使用 emit 自定义一个事件send-msg，传入参数 “我是子组件请求与你通信”
+      //$emit('send-msg','我是子组件请求与你通信')
+      //子组件标签上绑定自定义事件 send-msg，并绑定上父级的方法 getMsg，即可完成了子父组件通信
+      //<child-component v-on:send-msg="getMsg"></child-component>
+      Vue.component('child-component5', {
+        template: `
+                <button v-on:click="$emit('send-msg','我是子组件请求与你通信')">
+                Click me
+                </button>
+                `,
+      });
+      var app5 = new Vue({
+        el: '#app5',
+        methods: {
+          getMsg: function (msg) {
+            //弹出子组件传递的信息
+            alert(msg);
+          },
+        },
+      });
+    </script>
+
+    <div>
+      <h2>动态组件</h2>
+      <p>上面例子传值都是直接传的固定值，其实动态传值也支持，生成动态组件，使用 v-bind 动态绑定 props 值。</p>
+      <pre>
+        &lt;child-component6
+          :name="name"
+          :age="age"
+          :height="height"
+        &gt;&lt;/child-component6&gt;
+        //定义一个子组件
+        Vue.component('child-component6', {
+          //使用属性类型检测
+          props: {
+            name: String,
+            age: Number,
+            height: String,
+          },
+          template: `
+            &lt;ul&gt;
+              &lt;li&gt;{{name}}&lt;/li&gt;
+              &lt;li&gt;{{age}}&lt;/li&gt;
+              &lt;li&gt;{{height}}&lt;/li&gt;
+            &lt;/ul&gt;
+            `,
+        });
+        var app6 = new Vue({
+          el: '#app6',
+          data() {
+            return {
+              name: 'lc',
+              age: 20,
+              height: '180cm',
+            };
+          },
+        });
+      </pre>
+      <div id="app6">
+        <child-component6
+          :name="name"
+          :age="age"
+          :height="height"
+        ></child-component6>
+        <child-component6
+          :name="name+'2'"
+          :age="age+1"
+          :height="height"
+        ></child-component6>
+      </div>
+    </div>
+    <script>
+      //定义一个子组件
+      Vue.component('child-component6', {
+        //使用属性类型检测
+        props: {
+          name: String,
+          age: Number,
+          height: String,
+        },
+        template: `
+            <ul>
+                <li>{{name}}</li>
+                <li>{{age}}</li>
+                <li>{{height}}</li>
+            </ul>
+            `,
+      });
+      var app6 = new Vue({
+        el: '#app6',
+        data() {
+          return {
+            name: 'lc',
+            age: 20,
+            height: '180cm',
+          };
+        },
+      });
+    </script>
+
+    <div>
+      <h2>生命周期函数</h2>
+      <ol>
+        <li><code>beforeCreate()</code> 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用</li>
+        <li><code>created()</code> 在实例创建完成后被立即调用，挂载阶段还没开始，$el 属性目前不可见</li>
+        <li><code>beforeMount()</code> 在挂载开始之前被调用：相关的 render 函数首次被调用</li>
+        <li><code>mounted()</code> el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该函数</li>
+        <li><code>beforeUpdate()</code> 数据更新前调用</li>
+        <li><code>updated()</code> 组件 DOM 更新后调用</li>
+        <li><code>beforeDestroy()</code> 会在关闭前调用</li>
+        <li><code>destroyed()</code> 会在关闭后调用</li>
+      </ol>
+      <a href="6.vue lifestyle functions.png" target="_blank">生命周期函数示意图</a>
+      <p>主要用到的有：</p>
+      <ol>
+        <li>created 内可以进行异步数据请求</li>
+        <pre>
+        created() {
+          fetch('url')
+          .then(function(response) {
+            console.log(response)
+          })
+        }
+        </pre>
+        <li>mounted 可以直接操作元素 DOM 了，但是并不推荐这样做，不利于性能提升。</li>
+        <pre>
+          //div#box 开始并没有绑定事件，挂载后能直接操作原生 dom
+          mounted() {
+            var box = document.querySelector('#box');
+
+            box.addEventListener('click', function () {
+              alert('我们挂载后 原生点击事件');
+            });
+          }
+        </pre>
+      </ol>
+    </div>
+  </body>
+</html>
