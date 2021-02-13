@@ -75,7 +75,7 @@
         height: 200px;
         background-color: grey;
         opacity: 0.5;
-        transition: ;
+        transition: 0s;
         /*所有属性使用默认值，transition-timing-function 的默认值为 0s，所以 div4 无过渡效果*/
       }
       .div4:hover {
@@ -372,7 +372,7 @@
     <p>transition-delay 设置为 2s，当鼠标移到该盒子上，过渡效果将会延迟 2s 开始、结束</p>
     <div class="div3">div3 transition: 2s ease-in-out 2s;</div>
     <p>所有属性使用默认值，transition-timing-function 的默认值为 0s，所以 div4 无过渡效果</p>
-    <div class="div4">div4 transition: ;</div>
+    <div class="div4">div4 transition: 0s;</div>
     <p>可以发现，<code>div1</code> 的持续时间设置为 <code>2s</code>，效果采用 <code>ease-in-out</code>，其余为默认值，所以 <code>opacity</code>、<code>width</code>、<code>height</code> 的改变都会采用过渡效果；
         <code>div2</code> 中指定了过渡的属性为 <code>height</code>，所以其它两个属性不会使用过渡效果；
         <code>div3</code> 设置了 <code>transition-delay</code>，过渡效果的开始和结束都会延迟相应的时间；
